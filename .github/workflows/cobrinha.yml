@@ -1,0 +1,24 @@
+name: Generate a snake animation
+
+on:
+  schedule:
+    - cron: "0 */12 * * *" # Roda a cada 12 horas
+  workflow_dispatch:
+
+jobs:
+  generate:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: Platane/snk@v2
+        id: snake-gif
+        with:
+          github_user_name: [welberps] 
+          outputs: |
+            dist/github-snake.svg
+            dist/github-snake-dark.svg?palette=github-dark
+
+      - uses: actions/upload-artifact@v3
+        with:
+          name: github-snake
+          path: dist
